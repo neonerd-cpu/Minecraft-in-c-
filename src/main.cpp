@@ -1,24 +1,17 @@
-#include <SDL2/SDL.h>
-#include <iostream>
+#include </home/krish/Desktop/Minecraft-in-c-/include/game.hpp>
+#include <SDL2/SDL_video.h>
 
+game *g = nullptr;
 int main() {
-    SDL_Init(SDL_INIT_VIDEO);
-    SDL_Window* window = SDL_CreateWindow(
-        "Minecraft",
-        SDL_WINDOWPOS_CENTERED,
-        SDL_WINDOWPOS_CENTERED,
-        800, 600,
-        SDL_WINDOW_SHOWN
-    );
-    SDL_Renderer *renderer = SDL_CreateRenderer(window,-1,0);
+    g = new game();
+    g->init("Minecraft",SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, 800,600, false);
+    while (g->running()){
+        g->handleEvents();
+        g->update();
+        g->render();
 
-    SDL_SetRenderDrawColor(renderer,255,255,255,100);
-    SDL_RenderPresent(renderer);
-    SDL_RenderClear(renderer);
-    SDL_Delay(3000);
-
-    SDL_DestroyWindow(window);
-    SDL_Quit();
+    }
+    g->clean();
     return 0;
 }
 
